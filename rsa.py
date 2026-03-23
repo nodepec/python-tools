@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-RSA Encrypt / Decrypt GUI Tool
-Dark terminal aesthetic — uses tkinter (stdlib) + cryptography library
-"""
-
 import sys
 import subprocess
 import importlib
