@@ -1,6 +1,6 @@
 """
 CRYPTOOL — Advanced Encryption & Decryption Suite
-Modern React-inspired GUI  ·  tkinter + cryptography
+  ·  tkinter + cryptography
 """
 
 import sys, os, subprocess, importlib, base64, hashlib, secrets, time
@@ -32,26 +32,25 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
-# ── Design tokens (React/shadcn-inspired) ─────────────────────────────────────
-BG          = "#09090b"   # zinc-950
-SURFACE     = "#18181b"   # zinc-900
-SURFACE2    = "#27272a"   # zinc-800
-SURFACE3    = "#3f3f46"   # zinc-700
+BG          = "#09090b"
+SURFACE     = "#18181b"
+SURFACE2    = "#27272a"
+SURFACE3    = "#3f3f46"
 BORDER      = "#27272a"
 BORDER2     = "#3f3f46"
-FG          = "#fafafa"   # zinc-50
-FG2         = "#a1a1aa"   # zinc-400
-FG3         = "#71717a"   # zinc-500
-ACCENT      = "#6366f1"   # indigo-500
-ACCENT_H    = "#4f46e5"   # indigo-600
+FG          = "#fafafa"
+FG2         = "#a1a1aa"
+FG3         = "#71717a"
+ACCENT      = "#6366f1"
+ACCENT_H    = "#4f46e5"
 ACCENT_FG   = "#ffffff"
-SUCCESS     = "#22c55e"   # green-500
+SUCCESS     = "#22c55e"
 SUCCESS_BG  = "#14532d"
-DANGER      = "#ef4444"   # red-500
+DANGER      = "#ef4444"
 DANGER_BG   = "#7f1d1d"
-WARNING     = "#f59e0b"   # amber-500
-BLUE        = "#3b82f6"   # blue-500
-PURPLE      = "#a855f7"   # purple-500
+WARNING     = "#f59e0b"
+BLUE        = "#3b82f6"
+PURPLE      = "#a855f7"
 
 if sys.platform == "win32":
     FONT_UI   = "Segoe UI"
@@ -67,7 +66,6 @@ def ff(size=10, weight="normal", mono=False):
     family = FONT_MONO if mono else FONT_UI
     return (family, size, weight)
 
-# ── Crypto backend (unchanged) ─────────────────────────────────────────────────
 def derive_key(password, salt, length):
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=length,
                      salt=salt, iterations=260_000, backend=default_backend())
@@ -171,7 +169,6 @@ def tdes_decrypt(data, pw):
     dec=Cipher(_3DES(derive_key(pw,s,24)),modes.CBC(iv),backend=default_backend()).decryptor()
     pad=dec.update(ct)+dec.finalize(); return pad[:-pad[-1]]
 
-# ── Widget helpers ─────────────────────────────────────────────────────────────
 def frame(parent, bg=None, **kw):
     return tk.Frame(parent, bg=bg or parent["bg"], **kw)
 
@@ -303,7 +300,6 @@ class Toast:
     def _hide(self):
         self._frame.pack_forget()
 
-# ── Main application ───────────────────────────────────────────────────────────
 ALGOS = [
     ("AES-256-GCM",       "Authenticated encryption, tamper-proof",      "AEAD",   ACCENT),
     ("AES-256-CBC",       "Classic block cipher with PKCS7 padding",     "SYM",    BLUE),
