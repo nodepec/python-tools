@@ -6,6 +6,13 @@ GUI: tkinter (stdlib) · Crypto: cryptography library
 
 import sys, os, subprocess, importlib, base64, hashlib, struct, secrets, string
 
+if sys.platform == "win32" and "pythonw" not in sys.executable.lower():
+    import subprocess as _sp
+    pythonw = sys.executable.replace("python.exe", "pythonw.exe")
+    if os.path.exists(pythonw):
+        _sp.Popen([pythonw] + sys.argv)
+        sys.exit()
+
 def ensure(pkg, import_as=None):
     try: importlib.import_module(import_as or pkg.replace("-","_"))
     except ImportError:
