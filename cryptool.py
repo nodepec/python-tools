@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 CRYPTOOL — Advanced Encryption & Decryption Suite
 Supports: AES, RSA, ChaCha20, Fernet, Blowfish, XOR, Caesar, Vigenère, Base64
@@ -51,6 +50,7 @@ UI      = ("Segoe UI", 10) if sys.platform=="win32" else ("Helvetica Neue", 10)
 UI_SM   = ("Segoe UI", 9)  if sys.platform=="win32" else ("Helvetica Neue", 9)
 
 PAD = dict(padx=16, pady=6)
+
 
 def derive_key(password: str, salt: bytes, length: int) -> bytes:
     kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=length,
@@ -196,6 +196,7 @@ def tdes_decrypt(data: bytes, password: str) -> bytes:
     padded = dec.update(ct) + dec.finalize()
     return padded[:-padded[-1]]
 
+
 class CrypTool(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -213,6 +214,7 @@ class CrypTool(tk.Tk):
         self._build_header()
         self._build_body()
         self._build_footer()
+        self._algo_badge.config(text=f"[ {self._algo.get()} ]")
 
     def _build_header(self):
         h = tk.Frame(self, bg=BG2, height=56)
@@ -460,7 +462,8 @@ class CrypTool(tk.Tk):
         else:
             self._pw_frame.pack(fill="x")
 
-        self._algo_badge.config(text=f"[ {algo} ]")
+        if hasattr(self, "_algo_badge"):
+            self._algo_badge.config(text=f"[ {algo} ]")
 
     def _ok(self, msg):
         self._status_var.set(f"✓  {msg}")
@@ -683,6 +686,7 @@ class CrypTool(tk.Tk):
         self._output_box.delete("1.0","end")
         self._pw.delete(0,"end")
         self._ok("Cleared.")
+
 
 if __name__ == "__main__":
     app = CrypTool()
